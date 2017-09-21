@@ -1,0 +1,48 @@
+<div class="container">
+
+	<div class="container users-container">
+	<table class="table table-bordered table-striped table-hovered table-condensed" ng-hide="detailed">
+		<th>Name</th>
+		<th>Age</th>
+		<th>Action</th>
+		<tr ng-repeat = "User in users">
+			<td style="cursor: pointer;" ng-if="!editing" ng-click="showDetails(User)">{{User.name}}</td>
+			<td style="cursor: pointer;" ng-if="!editing" ng-click="showDetails(User)">{{User.age}}</td>
+			<td ng-if="editing"> <!-- updating -->
+				<input type="text" ng-model="User.name" class="form-control" style="width:100px;">
+			</td>
+			<td ng-if="editing">
+				<input type="text" ng-model="User.age" class="form-control" style="width:100px;">
+			</td>
+
+			<td>
+				<button class="btn btn-warning" ng-hide="editing" ng-click="editing=!editing">Edit</button>
+				<button class="btn btn-warning" ng-hide="!editing" ng-click="update(User);editing=false;">Update</button>
+				<button  ng-hide="!editing" class="btn btn-primary" ng-click="editing=!editing">cancel</button>
+				<button class="btn btn-danger" ng-hide="editing" ng-click="removeUser(User)">Delete</button>
+			</td>
+		</tr>
+	</table>
+	<button class="btn btn-primary btn-md" ng-hide="detailed===true || addUser==true;" ng-click="addUser = !addUser">Add user</button>
+	</div>
+	<div class="container create-users" ng-hide="!addUser">
+		<div class="form-group">
+		<label for="name">Name</label>
+		<input type="text" required id="name" ng-model="user.name" class="form-control" style="width: 300px">
+		<label for="name">Age</label>
+		<input type="number" required id="age" ng-model="user.age" class="form-control" style="width: 300px">
+		
+	</div>
+	<button class="btn btn-success" ng-click="add();addUser=false;" ng-disabled="!user.name || !user.age">Add</button>
+	<button  class="btn btn-primary" ng-click="addUser=false">Cancel</button>
+	</div>
+	<div class="container details-container" ng-if="detailed===true">
+		<div class="jumbotron">
+			<div class="close" style="font-size: 50px; color: black,cursor:pointer;" ng-click="detailed===false;">X</div>
+			<h3>You are viewing detail of #{{detailedUser._id}}</h3>
+			<h2>Name :{{detailedUser.name}}</h2>
+			<h2>Age :{{detailedUser.age}}</h2>
+		</div>
+		
+	</div>
+</div>
